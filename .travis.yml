@@ -46,17 +46,12 @@ language: python
 
 matrix:
   include:
-    - python: 2.7
-      env: MOCK=mock NUMPY=numpy==1.6
-    - python: 3.4
     - python: 3.5
       env: PANDAS=pandas NOSE_ARGS=--with-coverage
     - python: 3.5
       env: TEST_ARGS=--pep8
     - python: 3.5
       env: BUILD_DOCS=true
-    - python: "nightly"
-      env: PRE=--pre
   allow_failures:
     - python: "nightly"
 
@@ -129,7 +124,10 @@ script:
     echo The following args are passed to nose $NOSE_ARGS
     if [[ $BUILD_DOCS == false ]]; then
       export MPL_REPO_DIR=$PWD  # needed for pep8-conformance test of the examples
-      gdb -return-child-result -batch -ex r -ex bt --args python tests.py $NOSE_ARGS $TEST_ARGS
+      echo "DEBUGGING FAILURE"
+      echo $NOSE_ARGS
+      echo $TEST_ARGS
+      gdb -return-child-result -batch -ex r -ex bt --args python tests.py $NOSE_ARGS $TEST_ARGS matplotlib.tests.test_backend_ps:test_savefig_to_stringio_with_usetex
     else
       cd doc
       python make.py html --small
