@@ -177,7 +177,7 @@ class Legend(Artist):
                  fancybox=None,  # True use a fancy box, false use a rounded
                                  # box, none use rc
                  shadow=None,
-                 title=None,  # set a title for the legend
+                 title='',  # set a title for the legend
 
                  framealpha=None,  # set frame alpha
 
